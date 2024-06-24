@@ -10,11 +10,11 @@
     "routes": [
       {
         "src": "/api/(.*)",
-        "dest": "https://orange-backend.vercel.app/"
+        "dest": "https://orange-backend--tau.vercel.app/"
       },
       {
         "src": "/auth/(.*)",
-        "dest": "https://orange-backend.vercel.app/"
+        "dest": "https://orange-backend--tau.vercel.app/"
       },
       {
         "src": "/(.*)",
