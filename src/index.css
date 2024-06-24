@@ -1,0 +1,581 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Open Sans;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  height: 100vh;
+  background-color: black;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+p {
+  line-height: 1.7;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  line-height: 2.2;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.container {
+  width: 100%;
+  border-radius: 30px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* This section deals with the header **************************************** */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 2px dotted #000;
+  margin-bottom: 60px;
+  background-color: #ff5722;
+  font-size: 1.2rem;
+  font-family: Open Sans;
+  font-weight: 700;
+}
+
+.logo {
+  margin-left: 20px;
+  font-family: Open Sans;
+  font-size: 1.5rem;
+  font-weight: bold;
+  z-index: 1000;
+}
+
+#problem-button {
+  margin-left: 90px;
+}
+
+#user-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+#user-buttons button {
+  margin: 0 10px;
+  border-radius: 10px;
+}
+
+.header ul li a:hover {
+  color: #777;
+}
+
+.header ul li a svg {
+  margin-right: 5px;
+}
+/* ********************************************************** */
+
+/* This section deals with the dashboard and problem bars************************************* */
+.heading {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+  padding: 0 20px;
+  color: #ff5722;
+}
+.content {
+  width: 100%; /* Set the container width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bar {
+  padding: 20px;
+  width: 70%;
+  position: relative;
+  background-color: #ff5722; /* Set the background color */
+  border-radius: 20px; /* Create curved corners */
+  margin: 20px; /* Add gap between bars */
+  text-align: left;
+  overflow: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.1s ease-in;
+}
+
+.bar ul {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+}
+
+.bar:hover{
+  cursor: pointer;
+  width: 71%;
+}
+.bar ul > li {
+  margin: 5px;
+}
+
+.bar ul > div > h1 {
+  color: #ff5722;
+  background-color: #000;
+  border: 2px solid #000;
+  padding: 0 10px;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+.delete-button {
+  cursor: pointer;
+  background-color: #ff5722;
+  border: none;
+}
+
+.add-btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+  padding: 0 20px;
+  color: #ff5722;
+  background: black;
+  margin-top: 30px;
+}
+/* ***************************************************** */
+
+/* This section is for the problem creation form */
+#new-problem-buttons {
+  display: flex;
+  justify-content: space-between;
+  /* margin-top: 20px; */
+}
+
+#new-problem-buttons li {
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #ff5722;
+}
+/* ***************************************** */
+
+/* This is for the login page **************************/
+#login-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+#login-buttons li > button {
+  padding: 5px 30px;
+  border-radius: 10px;
+  border: 2px solid #ff5722;
+}
+/* ********************************************** */
+
+/* This is for the Register page */
+#register-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+#register-buttons li > button {
+  padding: 5px 38px;
+  border-radius: 10px;
+  border: 2px solid #ff5722;
+}
+#AdminText {
+  color: #000;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+/* ********************************************** */
+
+/* Password Reset ***********************************/
+.password-reset {
+  margin: auto;
+  position: relative;
+  width: 100%;
+  padding: 10px 20px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background: #000;
+  color: #ff5722;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ************************************ */
+.form {
+  width: 30%;
+  margin: 20px auto;
+  background-color: #ff5722;
+  border-radius: 30px;
+  padding: 30px;
+  background-color: #ff5722;
+}
+
+.form-group {
+  margin-bottom: 10px;
+  display: flex;
+}
+
+#adminCheckbox {
+  width: 16px; /* Adjust as needed */
+  height: 16px; /* Adjust as needed */
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-family: Open Sans;
+}
+
+#testCases {
+  display: block;
+}
+.form-group button {
+  width: 50%;
+  align-items: center;
+}
+
+.form-group label {
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  background: #000;
+  color: #ff5722;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  appearance: button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn svg {
+  margin-right: 8px;
+}
+
+.btn-reverse {
+  background: #fff;
+  color: #000;
+}
+
+.btn-block {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.btn:hover {
+  transform: scale(0.98);
+}
+
+.loadingSpinnerContainer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingSpinner {
+  width: 64px;
+  height: 64px;
+  border: 8px solid;
+  border-color: #000 transparent #555 transparent;
+  border-radius: 50%;
+  animation: spin 1.2s linear infinite;
+}
+
+#main {
+  display: flex; /* Flexbox layout to place children side by side */
+  height: 70vh; /* Sets the height to 70% of the viewport height */
+  padding: 10px; /* Adds padding around the content inside #main */
+  box-sizing: border-box; /* Includes padding in the calculation of width/height */
+}
+
+#problem,
+#editor {
+  overflow: auto;
+  background-color: #ff5722; /* Sets the background color */
+  color: white; /* Sets the text color */
+  width: 50%; /* Each box takes up half of the total width */
+  font-family: "Open Sans", sans-serif; /* Specifies the font family */
+  box-sizing: border-box; /* Includes padding and border in the width/height */
+  padding: 10px; /* Adds padding inside each box */
+  overflow: hidden; /* Prevents content from overflowing */
+  margin: -15px 16px 15px 15px;
+  border-radius: 0px 0px 20px 20px;
+}
+#problem-heading,
+#editor-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: -10px -10px 33px -10px;
+  color: #ff5722;
+  background-color: black;
+  border-radius: 0px 0px 20px 20px;
+  padding: 10px;
+  border: 2px solid #ff5722;
+  border-style: dotted;
+  display: flex;
+  justify-content: space-between;
+}
+
+#langauge-select,
+#theme-select {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: auto;
+  color: #ff5722;
+  background-color: black;
+  border-radius: 20px 20px 20px 20px;
+  padding: 10px;
+  border: 2px dotted #ff5722;
+  display: flex;
+  justify-content: space-between;
+}
+#editor-heading > ul,
+#problem-heading > ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+#editor-heading > ul > li,
+#problem-heading > ul > li {
+  border-radius: 20px 20px 20px 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+#editor-heading > ul > li {
+  cursor: pointer;
+}
+
+#problem-statement,
+#success-solve,
+#failure-solve,
+#compiler-error,
+#codepad,
+#output,
+#input {
+  overflow: auto;
+  background-color: black;
+  position: relative;
+  width: 100%;
+  border-radius: 5px;
+  margin-top: -10px;
+  color: white;
+  border: 2px dotted #ff5722;
+  text-align: left;
+  padding: 10px;
+  font: 1rem Open Sans;
+}
+
+#problem-statement {
+  height: 20vh;
+}
+
+#codepad {
+  resize: none;
+  height: 40vh;
+}
+
+#output {
+  margin-top: 10px;
+  resize: none;
+  height: 12vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#input {
+  margin-top: 10px;
+}
+
+#input-output {
+  display: flex;
+}
+
+#accepted-message {
+  color: lightgreen;
+  font-weight: bold;
+}
+
+#wrong-answer {
+  color: red;
+  font-weight: bold;
+}
+
+# #compiler-error,
+#success-solve,
+#failure-solve,
+#problem-status {
+  height: 25vh;
+}
+
+#problem-specs,
+#navigate-buttons {
+  /* Set the line height for better readability */
+  overflow: hidden;
+  flex-direction: column;
+  display: flex; /* Aligns children (li) in a row */
+  align-items: center; /* Centers the list items vertically if needed */
+  padding: 0; /* Removes default padding */
+  height: 30vh; /* Full height to enable vertical centering */
+  margin: 40px auto; /* Removes default margin and centers the ul horizontally */
+}
+
+#problem-specs > li {
+  overflow: auto;
+  padding: 10px;
+  text-align: left;
+}
+#navigate-buttons {
+  justify-content: space-between;
+  min-height: 45vh;
+}
+
+#problem-specs > li {
+  position: relative;
+  width: 70%; /* Width of each box */
+  height: 100%; /* Height of each box */
+  display: flex; /* Enables flexbox within each li */
+  justify-content: center; /* Centers content horizontally within each li */
+  align-items: left; /* Centers content vertically within each li */
+  border: 2px dotted #ff5722; /* Adds a border around each li */
+  border-radius: 20px;
+  box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+  position: relative; /* Sets position context to relative for each li */
+  margin: 20px; /* Adds spacing between the list items */
+  background-color: black;
+}
+
+#navigate-buttons > li {
+  position: relative;
+  width: 20%; /* Width of each box */
+  height: 10%; /* Height of each box */
+  display: flex; /* Enables flexbox within each li */
+  justify-content: center; /* Centers content horizontally within each li */
+  align-items: center; /* Centers content vertically within each li */
+  border: 2px dotted #ff5722; /* Adds a border around each li */
+  border-radius: 20px;
+  box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+  position: relative; /* Sets position context to relative for each li */
+  margin: 20px; /* Adds spacing between the list items */
+  background-color: black;
+}
+
+#code-reset {
+  margin-top: 5px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 10%;
+  /* Add margin around each list item */
+  padding: 10px; /* Add padding inside each list item */
+  border: 2px dotted #ff5722; /* Add a border around each list item */
+  border-radius: 20px; /* Add rounded corners to each list item */
+  background-color: black; /* Set the background color */
+  color: white; /* Set the text color */
+  font-size: 1rem; /* Set the font size */
+  font-weight: 700; /* Set the font weight */
+  cursor: pointer; /* Change the cursor to a pointer on hover */
+}
+
+#not-found {
+  color: #ff5722;
+  font-size: 3rem;
+  align-items: center;
+  justify-content: center;
+  font-weight: 1000;
+}
+
+.testcase-input,
+.testcase-output {
+  width: 50%;
+  height: 100px;
+  display: block; /* Changed from flex to block for proper rendering */
+  resize: vertical; /* Allows only vertical resizing */
+  overflow: auto;
+}
+#exclaim {
+  margin-top: 13px;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .form {
+    width: 90%;
+  }
+
+  .heading h1 {
+    font-size: 2rem;
+  }
+
+  .heading p {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 800px) {
+  #editor,
+  #problem {
+    height: 1000px;
+  }
+}
+
+@media (min-width: 801px) {
+  #editor,
+  #problem {
+    height: 150%;
+  }
+
+  #problem-specs {
+    height: 50vh;
+  }
+
+  #output {
+    height: 30vh;
+  }
+}
