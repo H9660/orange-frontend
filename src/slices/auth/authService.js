@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const API_URL = "/api/users/";
-const STAT_URL = "/api/stats/";
-const GOOGLE_AUTH = "/auth";
+const API_URL = "https://orange-backend--tau.vercel.app/api/users/";
+const STAT_URL = "https://orange-backend--tau.vercel.app/api/stats/";
+const GOOGLE_AUTH = "https://orange-backend--tau.vercel.app/auth";
 // Register user
 const register = async (userData) => {
   // Here at the time of registration we need to create a stat object as well for the user
