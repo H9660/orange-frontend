@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://orange-backend--tau.vercel.app/api/problems/";
+const API_URL = "/api/problems/";
 // Create new problem
 const createProblem = async (problemData) => {
   const response = await axios.post(API_URL, problemData);
@@ -21,7 +21,7 @@ const getProblems = async () => {
     const response = await axios.get(API_URL);
     if (response.data) return response.data;
   } catch (err) {
-    console.log(err);
+    throw new Error(err.message);
   }
 };
 

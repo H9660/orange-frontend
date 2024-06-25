@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import ProblemBar from "../components/ProblemBar";
 import Spinner from "../components/Spinner";
 import { getProblems } from "../slices/problem/problemSlice";
+import { toast } from "react-toastify";
+import { FaExclamationCircle } from "react-icons/fa";
 function Dashboard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -13,22 +15,21 @@ function Dashboard() {
   const { problems, isLoading, isError, message } = useSelector(
     (state) => state.problems // This is a reducer
   );
-  console.log(problems)
+  console.log(problems);
   useEffect(() => {
     if (isError) {
-      console.log(message);
+      toast.error(message)
     }
-
     dispatch(getProblems());
   }, [isError, message, dispatch]);
 
   if (isLoading) {
     return <Spinner />;
   }
-  
-  const createProblem = (e)=>{
-    navigate('/addProblem')
-  }
+
+  const createProblem = (e) => {
+    navigate("/addProblem");
+  };
   return (
     <>
       <section className="heading">
@@ -38,9 +39,32 @@ function Dashboard() {
       <section className="content">
         {
           <>
-            {problems.map((problem) => (
-              <ProblemBar problem={problem} />
-            ))}
+            {Array.isArray(problems) && problems.length !== 0 ? (
+              problems.map((problem) => (
+                <ProblemBar key={problem.id} problem={problem} />
+              ))
+            ) : isError ? (
+              (
+                <>
+                  <div id="not-found">
+                    <FaExclamationCircle
+                      id="exclaim"
+                      size="120px"
+                    ></FaExclamationCircle>
+                  </div>
+                </>
+              )
+            ): (
+              <>
+                <div id="not-found">
+                  <FaExclamationCircle
+                    id="exclaim"
+                    size="120px"
+                  ></FaExclamationCircle>
+                </div>
+                <div id="not-found">No problems found</div>
+              </>
+            )}
           </>
         }
       </section>

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const STAT_URL = "https://orange-backend--tau.vercel.app/api/stats/";
+const STAT_URL = "/api/stats/";
 
 const getStats = async (userData) => {
   // Extracting the user value from userData

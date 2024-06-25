@@ -44,6 +44,7 @@ const CodeEditor = (title) => {
     setInput(e.target.value);
   };
   const resetCode = () => {
+    // localStorage.setItem("code", "")
     setCode("");
     setVerdict("");
   };

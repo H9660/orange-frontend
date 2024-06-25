@@ -96,6 +96,16 @@ h3 {
   padding: 0 20px;
   color: #ff5722;
 }
+
+.no-problems {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ff5722;
+  border-radius: 5px;
+  padding: 10px;
+  /* background-color: #ff5722; */
+}
+
 .content {
   width: 100%; /* Set the container width */
   display: flex;
