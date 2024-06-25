@@ -38,7 +38,7 @@ const updateProblem = async (title) => {
 
 const runCode = async (runData) => {
   try {
-    const response = await axios.post(API_URL + "/run", runData);
+    const response = await axios.post(API_URL + "run", runData);
     return response.data.output;
   } catch (err) {
     console.log(err);
@@ -47,7 +47,7 @@ const runCode = async (runData) => {
 
 const submitCode = async (submitData) => {
   try {
-    const response = await axios.post(API_URL + "/submit", submitData);
+    const response = await axios.post(API_URL + "submit", submitData);
     return response.data.output;
   } catch (err) {
     console.log(err);
