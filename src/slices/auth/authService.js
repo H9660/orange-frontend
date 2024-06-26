@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const USER_URL = process.env.BACKEND_URL + "/api/users/";
-const STAT_URL = process.env.BACKEND_URL + "/api/stats/";
-const GOOGLE_AUTH = process.env.BACKEND_URL + "/auth";
+const USER_URL = process.env.REACT_APP_BACKEND_URL + "/api/users/";
+const STAT_URL = process.env.REACT_APP_BACKEND_URL + "/api/stats/";
+const GOOGLE_AUTH = process.env.REACT_APP_BACKEND_URL + "/auth";
 // Register user
 const register = async (userData) => {
   // Here at the time of registration we need to create a stat object as well for the user
