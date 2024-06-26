@@ -24,3 +24,5 @@ yarn-error.log*
 #vercel file for local deployment
 vercel.json
 .vercel
+
+.env

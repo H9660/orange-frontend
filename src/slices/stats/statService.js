@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const STAT_URL = "/api/stats/";
+const STAT_URL = process.env.BACKEND_URL + "/api/stats/";
 
 const getStats = async (userData) => {
   // Extracting the user value from userData

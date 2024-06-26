@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "/api/problems/";
+const API_URL = process.env.BACKEND_URL + "/api/problems/";
 // Create new problem
 const createProblem = async (problemData) => {
   const response = await axios.post(API_URL, problemData);

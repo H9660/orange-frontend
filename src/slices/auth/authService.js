@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const API_URL = "/api/users/";
-const STAT_URL = "/api/stats/";
-const GOOGLE_AUTH = "/auth";
+const USER_URL = process.env.BACKEND_URL + "/api/users/";
+const STAT_URL = process.env.BACKEND_URL + "/api/stats/";
+const GOOGLE_AUTH = process.env.BACKEND_URL + "/auth";
 // Register user
 const register = async (userData) => {
   // Here at the time of registration we need to create a stat object as well for the user
-  const response = await axios.post(API_URL, userData);
+  const response = await axios.post(USER_URL, userData);
   console.log(response);
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
@@ -25,7 +25,7 @@ const register = async (userData) => {
 
 // Login user
 const login = async (userData) => {
-  const response = await axios.post(API_URL + "login", userData);
+  const response = await axios.post(USER_URL + "login", userData);
 
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
@@ -51,7 +51,7 @@ const googleLogin = async () => {
 };
 
 const resetPassword = async (resetData) => {
-  const response = await axios.post(API_URL + "resetpassword", resetData);
+  const response = await axios.post(USER_URL + "resetpassword", resetData);
   console.log(response.data)
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
@@ -61,7 +61,7 @@ const resetPassword = async (resetData) => {
 };
 
 const updateSolvedProblems = async (updatedData) => {
-  const response = await axios.put(API_URL, updatedData);
+  const response = await axios.put(USER_URL, updatedData);
   console.log(response.data)
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
