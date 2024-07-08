@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -23,7 +23,7 @@ function ProblemForm() {
   const { title, statement, testcases, constraints } = formData;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const myRef = useRef(null)
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth // this is a reducer
   );
@@ -35,7 +35,10 @@ function ProblemForm() {
 
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
-
+  
+  useEffect(()=>{
+    myRef.current.focus()
+  }, [])
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -192,6 +195,7 @@ function ProblemForm() {
               name="title"
               value={title}
               placeholder="Title"
+              ref = {myRef}
               onChange={onChange}
             />
           </div>

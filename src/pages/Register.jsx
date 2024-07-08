@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -18,7 +18,7 @@ function Register() {
   const { name, email, password, password2, isAdmin } = formData;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const myRef = useRef(null);
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth // this is a reducer
   );
@@ -36,6 +36,9 @@ function Register() {
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
+  useEffect(() => {
+    myRef.current.focus();
+  }, []);
   const onChange = (e) => {
     console.log(e.target.checked);
     setFormData((prevState) => ({
@@ -94,6 +97,7 @@ function Register() {
               name="name"
               value={name}
               placeholder="Enter your name"
+              ref={myRef}
               onChange={onChange}
             />
           </div>
@@ -131,7 +135,7 @@ function Register() {
               onChange={onChange}
             />
           </div>
-          
+
           <ul id="register-buttons">
             <li>
               <input
@@ -144,8 +148,14 @@ function Register() {
                 Admin?
               </label>
             </li>
-             <li>
-              <button type="button" className="btn" onClick={()=>{navigate("/login")}}>
+            <li>
+              <button
+                type="button"
+                className="btn"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
                 Sign In
               </button>
             </li>

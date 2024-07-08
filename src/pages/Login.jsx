@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaSignInAlt } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,7 @@ function Login() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const myRef = useRef(null);
   const { user, isLoading, isError, isSuccess, isResetSuccessful, message } =
     useSelector((state) => state.auth);
 
@@ -43,6 +43,9 @@ function Login() {
     dispatch,
   ]);
 
+  useEffect(() => {
+    myRef.current.focus();
+  }, []);
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -91,6 +94,7 @@ function Login() {
               id="email"
               name="email"
               value={email}
+              ref={myRef}
               placeholder="Enter your email"
               onChange={onChange}
             />
@@ -109,10 +113,7 @@ function Login() {
 
           <ul id="login-buttons">
             <li>
-              <button
-                type="submit"
-                className="btn"
-              >
+              <button type="submit" className="btn">
                 Login
               </button>
             </li>
@@ -122,11 +123,7 @@ function Login() {
               </button>
             </li>
             <li>
-              <button
-                type="button"
-                className="btn"
-                onClick={resetPassword}
-              >
+              <button type="button" className="btn" onClick={resetPassword}>
                 Forgot Password?
               </button>
             </li>

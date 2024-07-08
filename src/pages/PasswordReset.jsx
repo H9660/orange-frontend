@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaSyncAlt } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,7 @@ function Login() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const myRef = useRef(null);
   const { isError, isLoading, message } = useSelector((state) => state.auth);
   useEffect(() => {
     if (isError) {
@@ -33,6 +33,9 @@ function Login() {
     }));
   };
 
+  useEffect(() => {
+    myRef.current.focus();
+  }, []);
   const onSubmit = (e) => {
     e.preventDefault();
     const resetData = {
@@ -66,6 +69,7 @@ function Login() {
               id="email"
               name="email"
               value={email}
+              ref={myRef}
               placeholder="Enter your email"
               onChange={onChange}
             />
