@@ -57,9 +57,6 @@ function Login() {
     navigate(`/resetpassword`);
   };
 
-  const googlelogin = (e) => {
-    dispatch(googleLogin());
-  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -115,11 +112,6 @@ function Login() {
             <li>
               <button type="submit" className="btn">
                 Login
-              </button>
-            </li>
-            <li>
-              <button className="btn" onClick={googlelogin}>
-                Login with Google
               </button>
             </li>
             <li>
