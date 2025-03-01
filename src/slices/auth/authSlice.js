@@ -155,7 +155,6 @@ export const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        // This action.payload is that data that is returned by authservice.login
         state.user = action.payload;
       })
       .addCase(login.rejected, (state, action) => {

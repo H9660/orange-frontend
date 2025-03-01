@@ -3,7 +3,7 @@ import { FaSignInAlt } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { login, googleLogin, reset } from "../slices/auth/authSlice";
+import { login, reset } from "../slices/auth/authSlice";
 import Spinner from "../components/Spinner";
 
 function Login() {
@@ -65,7 +65,8 @@ function Login() {
       email,
       password,
     };
-
+    
+    console.log(userData)
     dispatch(login(userData));
   };
 

@@ -52,7 +52,7 @@ h3 {
   padding: 20px 0;
   border-bottom: 2px dotted #000;
   margin-bottom: 60px;
-  background-color: #ff5722;
+  background-color: #FF9500;
   font-size: 1.2rem;
   font-family: Open Sans;
   font-weight: 700;
@@ -94,16 +94,16 @@ h3 {
   font-weight: 700;
   margin-bottom: 50px;
   padding: 0 20px;
-  color: #ff5722;
+  color: #FF9500;
 }
 
 .no-problems {
   font-size: 1.6rem;
   font-weight: 700;
-  color: #ff5722;
+  color: #FF9500;
   border-radius: 5px;
   padding: 10px;
-  /* background-color: #ff5722; */
+  /* background-color: #FF9500; */
 }
 
 .content {
@@ -117,7 +117,7 @@ h3 {
   padding: 20px;
   width: 70%;
   position: relative;
-  background-color: #ff5722; /* Set the background color */
+  background-color: #FF9500; /* Set the background color */
   border-radius: 20px; /* Create curved corners */
   margin: 20px; /* Add gap between bars */
   text-align: left;
@@ -144,7 +144,7 @@ h3 {
 }
 
 .bar ul > div > h1 {
-  color: #ff5722;
+  color: #FF9500;
   background-color: #000;
   border: 2px solid #000;
   padding: 0 10px;
@@ -153,7 +153,7 @@ h3 {
 }
 .delete-button {
   cursor: pointer;
-  background-color: #ff5722;
+  background-color: #FF9500;
   border: none;
 }
 
@@ -162,7 +162,7 @@ h3 {
   font-weight: 700;
   margin-bottom: 50px;
   padding: 0 20px;
-  color: #ff5722;
+  color: #FF9500;
   background: black;
   margin-top: 30px;
 }
@@ -178,7 +178,7 @@ h3 {
 #new-problem-buttons li {
   padding: 10px;
   border-radius: 10px;
-  border: 2px solid #ff5722;
+  border: 2px solid #FF9500;
 }
 /* ***************************************** */
 
@@ -190,7 +190,7 @@ h3 {
 #login-buttons li > button {
   padding: 5px 30px;
   border-radius: 10px;
-  border: 2px solid #ff5722;
+  border: 2px solid #FF9500;
 }
 /* ********************************************** */
 
@@ -202,7 +202,7 @@ h3 {
 #register-buttons li > button {
   padding: 5px 38px;
   border-radius: 10px;
-  border: 2px solid #ff5722;
+  border: 2px solid #FF9500;
 }
 #AdminText {
   color: #000;
@@ -220,7 +220,7 @@ h3 {
   border: 1px solid #000;
   border-radius: 10px;
   background: #000;
-  color: #ff5722;
+  color: #FF9500;
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
@@ -232,10 +232,10 @@ h3 {
 .form {
   width: 30%;
   margin: 20px auto;
-  background-color: #ff5722;
+  background-color: #FF9500;
   border-radius: 30px;
   padding: 30px;
-  background-color: #ff5722;
+  background-color: #FF9500;
 }
 
 .form-group {
@@ -280,7 +280,7 @@ h3 {
   border: 1px solid #000;
   border-radius: 5px;
   background: #000;
-  color: #ff5722;
+  color: #FF9500;
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
@@ -315,7 +315,7 @@ h3 {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 1);
   z-index: 5000;
   display: flex;
   justify-content: center;
@@ -328,7 +328,7 @@ h3 {
   border: 8px solid;
   border-color: #000 transparent #555 transparent;
   border-radius: 50%;
-  animation: spin 1.2s linear infinite;
+  animation: spin 1s linear infinite;
 }
 
 #main {
@@ -341,7 +341,7 @@ h3 {
 #problem,
 #editor {
   overflow: auto;
-  background-color: #ff5722; /* Sets the background color */
+  background-color: #FF9500; /* Sets the background color */
   color: white; /* Sets the text color */
   width: 50%; /* Each box takes up half of the total width */
   font-family: "Open Sans", sans-serif; /* Specifies the font family */
@@ -356,11 +356,11 @@ h3 {
   font-size: 1.5rem;
   font-weight: 700;
   margin: -10px -10px 33px -10px;
-  color: #ff5722;
+  color: #FF9500;
   background-color: black;
   border-radius: 0px 0px 20px 20px;
   padding: 10px;
-  border: 2px solid #ff5722;
+  border: 2px solid #FF9500;
   border-style: dotted;
   display: flex;
   justify-content: space-between;
@@ -371,11 +371,11 @@ h3 {
   font-size: 1rem;
   font-weight: 700;
   margin: auto;
-  color: #ff5722;
+  color: #FF9500;
   background-color: black;
   border-radius: 20px 20px 20px 20px;
   padding: 10px;
-  border: 2px dotted #ff5722;
+  border: 2px dotted #FF9500;
   display: flex;
   justify-content: space-between;
 }
@@ -409,7 +409,7 @@ h3 {
   border-radius: 5px;
   margin-top: -10px;
   color: white;
-  border: 2px dotted #ff5722;
+  border: 2px dotted #FF9500;
   text-align: left;
   padding: 10px;
   font: 1rem Open Sans;
@@ -486,7 +486,7 @@ h3 {
   display: flex; /* Enables flexbox within each li */
   justify-content: center; /* Centers content horizontally within each li */
   align-items: left; /* Centers content vertically within each li */
-  border: 2px dotted #ff5722; /* Adds a border around each li */
+  border: 2px dotted #FF9500; /* Adds a border around each li */
   border-radius: 20px;
   box-sizing: border-box; /* Includes padding and border in the element's total width and height */
   position: relative; /* Sets position context to relative for each li */
@@ -501,7 +501,7 @@ h3 {
   display: flex; /* Enables flexbox within each li */
   justify-content: center; /* Centers content horizontally within each li */
   align-items: center; /* Centers content vertically within each li */
-  border: 2px dotted #ff5722; /* Adds a border around each li */
+  border: 2px dotted #FF9500; /* Adds a border around each li */
   border-radius: 20px;
   box-sizing: border-box; /* Includes padding and border in the element's total width and height */
   position: relative; /* Sets position context to relative for each li */
@@ -517,7 +517,7 @@ h3 {
   width: 10%;
   /* Add margin around each list item */
   padding: 10px; /* Add padding inside each list item */
-  border: 2px dotted #ff5722; /* Add a border around each list item */
+  border: 2px dotted #FF9500; /* Add a border around each list item */
   border-radius: 20px; /* Add rounded corners to each list item */
   background-color: black; /* Set the background color */
   color: white; /* Set the text color */
@@ -527,7 +527,7 @@ h3 {
 }
 
 #not-found {
-  color: #ff5722;
+  color: #FF9500;
   font-size: 3rem;
   align-items: center;
   justify-content: center;
