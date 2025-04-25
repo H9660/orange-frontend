@@ -44,7 +44,6 @@ const CodeEditor = (title) => {
     setInput(e.target.value);
   };
   const resetCode = () => {
-    // localStorage.setItem("code", "")
     setCode("");
     setVerdict("");
   };
@@ -66,7 +65,7 @@ const CodeEditor = (title) => {
     dispatch(runCode(submitData));
   };
 
-  const submitcode = (e) => {
+  const submitcode = async (e) => {
     if (code === "") {
       toast.error("Write some code first");
       return;
@@ -83,15 +82,19 @@ const CodeEditor = (title) => {
       language: language,
       title: title.title,
   };
-    dispatch(submitCode(submitData));
+    await dispatch(submitCode(submitData));
     console.log(result);
-    if (result === "Accepted" && !user.solvedProblems.includes(title)) {
+    console.log(user.solvedProblems)
+    console.log(title.title.title)
+    if (result === "Accepted" && !user.solvedProblems.includes(
+      title.title.title
+  )) {
       const email = user.email;
       const updateData = {
         email,
         title,
       };
-      dispatch(updateSolvedProblems(updateData));
+      await dispatch(updateSolvedProblems(updateData));
     }
   };
 
