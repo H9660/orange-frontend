@@ -35,7 +35,7 @@ const CodeEditor = ({ title }) => {
     localStorage.setItem(`${title}-input`, input);
     const result = await dispatch(runCode({ code, language, title, input }));
     console.log(result.payload);
-    if (result) setVerdict(result.payload);
+    if (result && result.payload) setVerdict(result.payload);
   };
 
   const submitcode = async () => {
@@ -43,7 +43,8 @@ const CodeEditor = ({ title }) => {
     if (!user) return toast.error("Please login to submit");
     localStorage.setItem(`${title}-code`, code);
     const result = await dispatch(submitCode({ code, language, title }));
-    if (result) setVerdict(result);
+    console.log(result);
+    if (result && result.payload) setVerdict(result.payload);
     console.log(user.solvedProblems);
     if (result === "Accepted" && !user.solvedProblems.includes(title)) {
       await dispatch(updateSolvedProblems({ email: user.email, title }));
@@ -105,7 +106,15 @@ const CodeEditor = ({ title }) => {
           <ClipLoader color="#ffffff" size={20} />
         </>
       ) : (
-        <div className="editor-output-success">{verdict}</div>
+        <div
+          className={
+            verdict.includes("error")
+              ? "editor-output-error"
+              : "editor-output-success"
+          }
+        >
+          {verdict}
+        </div>
       )}
     </div>
   );
