@@ -34,7 +34,6 @@ const CodeEditor = ({ title }) => {
     localStorage.setItem(`${title}-code`, code);
     localStorage.setItem(`${title}-input`, input);
     const result = await dispatch(runCode({ code, language, title, input }));
-    console.log(result.payload);
     if (result && result.payload) setVerdict(result.payload);
   };
 
@@ -43,7 +42,6 @@ const CodeEditor = ({ title }) => {
     if (!user) return toast.error("Please login to submit");
     localStorage.setItem(`${title}-code`, code);
     const result = await dispatch(submitCode({ code, language, title }));
-    console.log(result);
     if (result && result.payload) setVerdict(result.payload);
     console.log(user.solvedProblems);
     if (result === "Accepted" && !user.solvedProblems.includes(title)) {
