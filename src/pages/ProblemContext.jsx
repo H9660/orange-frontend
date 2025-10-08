@@ -5,8 +5,10 @@ import Spinner from "../components/Spinner";
 import CodeEditor from "./CodeEditor";
 import { getProblem } from "../slices/problem/problemSlice";
 import { FaExclamationCircle } from "react-icons/fa";
+import { useParams } from "react-router-dom";
 
-function ProblemContext(title) {
+function ProblemContext() {
+  const { title } = useParams();
   const solveSuccess = false;
   const compilerError = false;
   const failure = false;
@@ -16,17 +18,13 @@ function ProblemContext(title) {
   const { problem, isLoading, isError, message } = useSelector(
     (state) => state.problems
   );
-  console.log(problem)
+  console.log(problem);
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
     dispatch(getProblem(title));
   }, [dispatch, isError, title, message]);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
 
   return (
     <>
@@ -88,8 +86,8 @@ function ProblemContext(title) {
                     <div></div>
                   )}
 
-                  {problem.constrants ? (
-                    <li>{problem.constraints}</li>
+                  {problem.constraints ? (
+                    <li>Constraints: {problem.constraints}</li>
                   ) : (
                     <li>No constraints on input</li>
                   )}

@@ -78,10 +78,10 @@ export const getProblems = createAsyncThunk(
 // Update problem
 export const updateProblem = createAsyncThunk(
   "problem/update",
-  async (title, thunkAPI) => {
+  async (title, updatedProblem, thunkAPI) => {
     try {
       // const token = thunkAPI.getState().auth.user.token
-      return await problemService.updateProblem(title);
+      return await problemService.updateProblem(title, updatedProblem);
     } catch (error) {
       const message =
         (error.response &&

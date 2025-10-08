@@ -7,9 +7,9 @@ const createProblem = async (problemData) => {
   return response.data;
 };
 
-const getProblem = async (title) => {
+export const getProblem = async (title) => {
   try {
-    const response = await axios.get(API_URL + `${title.title}`);
+    const response = await axios.get(API_URL + `${title}`);
     if (response.data) return response.data;
   } catch (error) {
     console.error("Error occurred:", error);
@@ -31,9 +31,25 @@ const deleteProblem = async (title) => {
   return response.data;
 };
 
-const updateProblem = async (title) => {
-  const response = await axios.put(API_URL + title);
-  return response.data;
+const updateProblem = async (title, updatedProblem) => {
+  try {
+    const response = await axios.patch(
+      `${API_URL}update/${title}`,
+      updatedProblem,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        },
+        // withCredentials: true,
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error updating problem:", error);
+    throw error.response?.data || error.message;
+  }
 };
 
 const runCode = async (runData) => {
@@ -60,7 +76,7 @@ const problemService = {
   updateProblem,
   deleteProblem,
   runCode,
-  submitCode
+  submitCode,
 };
 
 export default problemService;

@@ -1,37 +1,39 @@
-import { useState, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { FaCode, FaTrashAlt, FaPlus } from "react-icons/fa";
-import { reset } from "../slices/auth/authSlice";
-import { createProblem } from "../slices/problem/problemSlice";
+import { FaEdit, FaTrashAlt, FaPlus } from "react-icons/fa";
+import useSWR, { mutate } from "swr";
+import problemService from "../slices/problem/problemService";
 import Spinner from "../components/Spinner";
-
-function ProblemForm() {
+function ProblemUpdateForm() {
+  const { problemTitle } = useParams();
   const [formData, setFormData] = useState({
-    title: "",
-    statement: "",
-    constraints: "",
+    title: problemTitle,
+    statement: "Loading...",
+    constraints: "Loading...",
   });
 
+  const fetcher = async (title) => {
+    if (title) {
+      const problem = await problemService.getProblem(title);
+      if (problem) return problem;
+    }
+  };
+
   const [testcases, setTestcases] = useState([{ input: "", output: "" }]);
-
   const { title, statement, constraints } = formData;
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+
   const myRef = useRef(null);
+  const navigate = useNavigate();
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  );
+  // SWR fetcher using async dispatch
+  const { data, error, isLoading } = useSWR(problemTitle, fetcher, {
+    revalidateOnFocus: true,
+  });
 
+  // Populate form once data is fetched
   useEffect(() => {
-    if (isError) toast.error(message);
-    dispatch(reset());
-  }, [isError, message, dispatch]);
-
-  useEffect(() => {
-    myRef.current.focus();
+    myRef.current?.focus();
   }, []);
 
   const onChange = (e) =>
@@ -44,7 +46,6 @@ function ProblemForm() {
   };
 
   const addTestCase = () => {
-    // Check previous test case validity
     const last = testcases[testcases.length - 1];
     if (!last.input || !last.output) {
       toast.error("Please fill in the previous test case first!");
@@ -59,31 +60,62 @@ function ProblemForm() {
     setTestcases(updated.length ? updated : [{ input: "", output: "" }]);
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      setFormData({
+        title: data.title || "Loading...",
+        statement: data.statement || "Loading...",
+        constraints: data.constraints || "Loading...",
+      });
+      setTestcases(
+        data.testcases?.length ? data.testcases : [{ input: "", output: "" }]
+      );
+    }
+  }, [data]);
 
-    // Validate testcases
+  const onSubmit = async (e) => {
+    e.preventDefault();
     if (!testcases.length || testcases.some((tc) => !tc.input || !tc.output)) {
       toast.error("All test cases must be filled!");
       return;
     }
 
-    const problemData = { title, statement, constraints, testcases };
-    dispatch(createProblem(problemData));
-    navigate("/problems");
+    const updatedProblem = { ...formData, problemTitle, testcases };
+
+    try {
+      // Optimistically update SWR cache
+      await mutate(
+        problemTitle,
+        async () => {
+          await problemService.updateProblem(problemTitle, updatedProblem); // API call
+          return updatedProblem; // update cache immediately
+        },
+        {
+          optimisticData: updatedProblem,
+          rollbackOnError: true,
+          revalidate: false,
+        }
+      );
+
+      toast.success("Problem updated successfully!");
+      navigate("/problems");
+    } catch (err) {
+      toast.error(err.message || "Failed to update problem!");
+    }
   };
 
   if (isLoading) return <Spinner />;
+  if (error) return <div>Error loading problem: {error.message}</div>;
 
   return (
     <div className="problem-form-container">
       <section className="heading">
         <h1 className="heading-title">
-          <FaCode /> Add Problem
+          <FaEdit /> Edit Problem
         </h1>
         <p className="heading-subtitle">
-          Fill in the details of the new problem and create engaging coding
-          challenges for your users.
+          Modify the details and test cases of this coding problem.
         </p>
       </section>
 
@@ -148,6 +180,7 @@ function ProblemForm() {
                 </button>
               </div>
             ))}
+
             <button
               type="button"
               className="add-testcase-btn"
@@ -157,7 +190,7 @@ function ProblemForm() {
             </button>
 
             <button type="submit" className="btn submit-btn">
-              Create Problem
+              Update Problem
             </button>
           </div>
         </form>
@@ -166,4 +199,4 @@ function ProblemForm() {
   );
 }
 
-export default ProblemForm;
+export default ProblemUpdateForm;

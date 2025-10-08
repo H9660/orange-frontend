@@ -14,6 +14,7 @@ import Profile from "./pages/Profile";
 import PasswordReset from "./pages/PasswordReset";
 import ProblemForm from "./pages/ProblemForm";
 import ProblemContext from "./pages/ProblemContext";
+import ProblemUpdateForm from "./pages/ProblemEditForm";
 
 function App() {
   function ProblemContextWrapper() {
@@ -33,10 +34,8 @@ function App() {
             <Route path="/:user" element={<Profile />} />
             <Route path="/resetpassword" element={<PasswordReset />} />
             <Route path="/addProblem" element={<ProblemForm />} />
-            <Route
-              path="/problems/:title"
-              element={<ProblemContextWrapper />}
-            />
+            <Route path="/edit/:problemTitle" element={<ProblemUpdateForm />} />
+            <Route path="/problems/:title" element={<ProblemContext />} />
           </Routes>
         </div>
       </Router>

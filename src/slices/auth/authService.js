@@ -1,5 +1,6 @@
 import axios from "axios";
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'
+const BACKEND_URL =
+  process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
 const USER_URL = BACKEND_URL + "/api/users/";
 const STAT_URL = BACKEND_URL + "/api/stats/";
 const GOOGLE_AUTH = BACKEND_URL + "/auth";
@@ -10,6 +11,7 @@ const register = async (userData) => {
   console.log(response);
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
+    localStorage.setItem("token", JSON.stringify(response.data.token));
   }
   const statData = {
     userId: response.data._id,
@@ -29,6 +31,7 @@ const login = async (userData) => {
 
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
+    localStorage.setItem("token", JSON.stringify(response.data.token));
   }
 
   return response.data;
@@ -36,8 +39,8 @@ const login = async (userData) => {
 
 const googleLogin = async () => {
   try {
-    const response = await axios.get(GOOGLE_AUTH)
-    
+    const response = await axios.get(GOOGLE_AUTH);
+
     if (response.data) {
       localStorage.setItem("user", JSON.stringify(response.data));
     }
@@ -52,7 +55,7 @@ const googleLogin = async () => {
 
 const resetPassword = async (resetData) => {
   const response = await axios.post(USER_URL + "resetpassword", resetData);
-  console.log(response.data)
+  console.log(response.data);
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
   }
@@ -62,7 +65,7 @@ const resetPassword = async (resetData) => {
 
 const updateSolvedProblems = async (updatedData) => {
   const response = await axios.put(USER_URL, updatedData);
-  console.log(response.data)
+  console.log(response.data);
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
   }
@@ -80,7 +83,7 @@ const authService = {
   login,
   resetPassword,
   googleLogin,
-  updateSolvedProblems
+  updateSolvedProblems,
 };
 
 export default authService;

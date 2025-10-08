@@ -20,154 +20,129 @@ function Register() {
   const dispatch = useDispatch();
   const myRef = useRef(null);
   const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth // this is a reducer
+    (state) => state.auth
   );
 
   useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
-
-    if (isSuccess || user) {
-      // To navigate to the admin profile we can use this line after changing it a bit
-      navigate("/");
-    }
-
+    if (isError) toast.error(message);
+    if (isSuccess || user) navigate("/");
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
-  useEffect(() => {
-    myRef.current.focus();
-  }, []);
-  const onChange = (e) => {
-    console.log(e.target.checked);
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  useEffect(() => myRef.current.focus(), []);
 
-  const toggleIsAdmin = (e) => {
-    setFormData({
-      ...formData, // Keep all other fields unchanged
-      isAdmin: e.target.checked, // Toggle the value of isAdmin
-    });
-  };
+  const onChange = (e) =>
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+
+  const toggleIsAdmin = (e) =>
+    setFormData((prev) => ({ ...prev, isAdmin: e.target.checked }));
 
   const onSubmit = (e) => {
-    console.log(e.target); // This is the triggerrer of the event
-    // This is done to prevent automatically page reloading
     e.preventDefault();
-    // The use case of this is that if the user inputs some wrong data like unmatched passwords then this will prevent the page from reloading thereby saving other entered data
-    console.log(isAdmin);
     if (password !== password2) {
       toast.error("Passwords do not match");
-    } else {
-      const userData = {
-        name,
-        email,
-        password,
-        isAdmin,
-      };
-
-      dispatch(register(userData)); // This is sending the dispatch actions to the redux store
+      return;
     }
+
+    dispatch(register({ name, email, password, isAdmin }));
   };
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+  if (isLoading) return <Spinner />;
 
   return (
-    <>
-      <section className="heading">
+    <div className="register-container">
+      <section className="register-heading">
         <h1>
           <FaUser /> Register
         </h1>
         <p>Please create an account</p>
       </section>
 
-      <section className="form">
+      <section className="register-form">
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <input
               type="text"
-              className="form-control"
-              id="name"
               name="name"
               value={name}
-              placeholder="Enter your name"
               ref={myRef}
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="email"
+              placeholder="Enter your name"
               className="form-control"
-              id="email"
-              name="email"
-              checked={formData.isAdmin}
-              value={email}
-              placeholder="Enter your email"
               onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              name="password"
-              value={password}
-              placeholder="Enter password"
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              className="form-control"
-              id="password2"
-              name="password2"
-              value={password2}
-              placeholder="Confirm password"
-              onChange={onChange}
+              required
             />
           </div>
 
-          <ul id="register-buttons">
-            <li>
-              <input
-                type="checkbox"
-                id="adminCheckbox"
-                name="isAdmin"
-                onChange={toggleIsAdmin}
-              ></input>
-              <label id="AdminText" for="adminCheckbox">
-                Admin?
-              </label>
-            </li>
+          <div className="form-group">
+            <input
+              type="email"
+              name="email"
+              value={email}
+              placeholder="Enter your email"
+              className="form-control"
+              onChange={onChange}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <input
+              type="password"
+              name="password"
+              value={password}
+              placeholder="Enter password"
+              className="form-control"
+              onChange={onChange}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <input
+              type="password"
+              name="password2"
+              value={password2}
+              placeholder="Confirm password"
+              className="form-control"
+              onChange={onChange}
+              required
+            />
+          </div>
+
+          <div className="role-selector">
+            <label
+              className={`role-btn ${formData.isAdmin ? "" : "active"}`}
+              onClick={() => setFormData({ ...formData, isAdmin: false })}
+            >
+              User
+            </label>
+            <label
+              className={`role-btn ${formData.isAdmin ? "active" : ""}`}
+              onClick={() => setFormData({ ...formData, isAdmin: true })}
+            >
+              Admin
+            </label>
+          </div>
+
+          <ul className="register-buttons">
             <li>
               <button
                 type="button"
-                className="btn"
-                onClick={() => {
-                  navigate("/login");
-                }}
+                className="btn secondary-btn"
+                onClick={() => navigate("/login")}
               >
                 Sign In
               </button>
             </li>
             <li>
-              <button type="submit" className="btn">
+              <button type="submit" className="btn primary-btn">
                 Register
               </button>
             </li>
           </ul>
         </form>
       </section>
-    </>
+    </div>
   );
 }
 

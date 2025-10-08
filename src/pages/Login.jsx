@@ -7,11 +7,7 @@ import { login, reset } from "../slices/auth/authSlice";
 import Spinner from "../components/Spinner";
 
 function Login() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const { email, password } = formData;
 
   const navigate = useNavigate();
@@ -21,17 +17,10 @@ function Login() {
     useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
-
-    if (isResetSuccessful) {
+    if (isError) toast.error(message);
+    if (isResetSuccessful)
       toast.success("Password reset successful. Please log in.");
-    }
-    if (isSuccess || user) {
-      navigate("/");
-    }
-
+    if (isSuccess || user) navigate("/");
     dispatch(reset());
   }, [
     isResetSuccessful,
@@ -43,87 +32,75 @@ function Login() {
     dispatch,
   ]);
 
-  useEffect(() => {
-    myRef.current.focus();
-  }, []);
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  useEffect(() => myRef.current.focus(), []);
 
-  const resetPassword = (e) => {
-    navigate(`/resetpassword`);
-  };
+  const onChange = (e) =>
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
+  const resetPassword = () => navigate(`/resetpassword`);
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    const userData = {
-      email,
-      password,
-    };
-    
-    console.log(userData)
-    dispatch(login(userData));
+    dispatch(login({ email, password }));
   };
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+  if (isLoading) return <Spinner />;
 
   return (
-    <>
-      <section className="heading">
+    <div className="login-container">
+      <section className="login-heading">
         <h1>
           <FaSignInAlt /> Login
         </h1>
         <p>Login and start solving problems</p>
       </section>
 
-      <section className="form">
+      <section className="login-form">
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <input
               type="email"
-              className="form-control"
-              id="email"
               name="email"
               value={email}
               ref={myRef}
               placeholder="Enter your email"
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
               className="form-control"
-              id="password"
-              name="password"
-              value={password}
-              placeholder="Enter password"
               onChange={onChange}
+              required
             />
           </div>
 
-          <ul id="login-buttons">
+          <div className="form-group">
+            <input
+              type="password"
+              name="password"
+              value={password}
+              placeholder="Enter password"
+              className="form-control"
+              onChange={onChange}
+              required
+            />
+          </div>
+
+          <ul className="login-buttons">
             <li>
-              <button type="submit" className="btn">
+              <button type="submit" className="btn primary-btn">
                 Login
               </button>
             </li>
             <li>
-              <button type="button" className="btn" onClick={resetPassword}>
+              <button
+                type="button"
+                className="btn secondary-btn"
+                onClick={resetPassword}
+              >
                 Forgot Password?
               </button>
             </li>
           </ul>
         </form>
       </section>
-    </>
+    </div>
   );
 }
 

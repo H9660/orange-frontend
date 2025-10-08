@@ -1,171 +1,116 @@
 import React, { useState, useEffect } from "react";
+import { ClipLoader } from "react-spinners";
 import { Editor } from "@monaco-editor/react";
 import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { runCode, submitCode } from "../slices/problem/problemSlice";
 import { updateSolvedProblems } from "../slices/auth/authSlice";
-const CodeEditor = (title) => {
-  const [code, setCode] = useState(localStorage.getItem("code") || "");
+
+const CodeEditor = ({ title }) => {
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.problems);
+  const { user } = useSelector((state) => state.auth);
+  const { result } = useSelector((state) => state.problems);
+
+  const [code, setCode] = useState(localStorage.getItem(`${title}-code`) || "");
   const [language, setLanguage] = useState(
     localStorage.getItem("language") || "cpp"
   );
   const [theme, setTheme] = useState("vs-dark");
-  const [verdict, setVerdict] = useState("");
+  const [verdict, setVerdict] = useState("Please run your code...");
   const [input, setInput] = useState(localStorage.getItem("input") || "");
+
   const languages = ["cpp", "Java", "Python", "Javascript", "Ruby"];
-  const themes = [
-    "vs",
-    "vs-dark",
-    "hc-black",
-    "monokai",
-    "solarized-dark",
-    "solarized-light",
-    "github",
-    "github-dark",
-    "github-light",
-  ];
-  const dispatch = useDispatch();
-  const { result } = useSelector((state) => state.problems);
-  const { user } = useSelector((state) => state.auth);
-  const updateLanguage = (event) => {
-    setLanguage(event.target.value);
-    localStorage.setItem("language", event.target.value);
+  const themes = ["vs", "vs-dark", "monokai", "solarized-dark", "github-dark"];
+
+  const updateCode = (value) => setCode(value);
+  const updateInput = (e) => setInput(e.target.value);
+  const updateLanguage = (e) => {
+    setLanguage(e.target.value);
+    localStorage.setItem("language", e.target.value);
+  };
+  const updateTheme = (e) => setTheme(e.target.value);
+
+  const runcode = () => {
+    if (!code) return toast.error("Write some code first");
+    localStorage.setItem(`${title}-code`, code);
+    localStorage.setItem(`${title}-input`, input);
+    dispatch(runCode({ code, language, title, input }));
   };
 
-  const updateTheme = (event) => {
-    setTheme(event.target.value);
+  const submitcode = async () => {
+    if (!code) return toast.error("Write some code first");
+    if (!user) return toast.error("Please login to submit");
+    localStorage.setItem(`${title}-code`, code);
+    await dispatch(submitCode({ code, language, title }));
+    console.log(user.solvedProblems);
+    if (result === "Accepted" && !user.solvedProblems.includes(title)) {
+      await dispatch(updateSolvedProblems({ email: user.email, title }));
+    }
   };
 
-  const updateCode = (value) => {
-    setCode(value);
-  };
-
-  const updateInput = (e) => {
-    setInput(e.target.value);
-  };
   const resetCode = () => {
     setCode("");
     setVerdict("");
   };
 
-  const runcode = (e) => {
-    if (code === "") {
-      toast.error("Write some code first");
-      return;
-    }
-
-    localStorage.setItem("code", code);
-    localStorage.setItem("input", input);
-    const submitData = {
-      code: code,
-      language: language,
-      title: title,
-      input: input,
-    };
-    dispatch(runCode(submitData));
-  };
-
-  const submitcode = async (e) => {
-    if (code === "") {
-      toast.error("Write some code first");
-      return;
-    }
-
-    if (localStorage.getItem("user") == null) {
-      toast.error("Please login to submit");
-      return;
-    }
-
-    localStorage.setItem("code", code);
-    const submitData = {
-      code: code,
-      language: language,
-      title: title.title,
-  };
-    await dispatch(submitCode(submitData));
-    console.log(result);
-    console.log(user.solvedProblems)
-    console.log(title.title.title)
-    if (result === "Accepted" && !user.solvedProblems.includes(
-      title.title.title
-  )) {
-      const email = user.email;
-      const updateData = {
-        email,
-        title,
-      };
-      await dispatch(updateSolvedProblems(updateData));
-    }
-  };
-
   useEffect(() => {
-    console.log(result);
-    setVerdict(result);
-  }, [dispatch, result]);
+    if (result) setVerdict(result);
+  }, [result]);
 
   return (
-    <div id="editor">
-      <ul id="editor-heading">
-        <li>
-          <select
-            name="languages"
-            value={language}
-            id="langauge-select"
-            onChange={updateLanguage}
-          >
-            {languages.map((lang, index) => (
-              <option key={index} value={lang.toLowerCase()}>
-                {lang}
-              </option>
-            ))}
-          </select>
-        </li>
-        <li>
-          <select
-            name="themes"
-            value={theme}
-            id="theme-select"
-            onChange={updateTheme}
-          >
-            {themes.map((theme, index) => (
-              <option key={index} value={theme.toLowerCase()}>
-                {theme}
-              </option>
-            ))}
-          </select>
-        </li>
-        <ul>
-          <li onClick={runcode}>Run</li>
-          <li onClick={submitcode}>Submit</li>
-        </ul>
-      </ul>
+    <div className="code-editor">
+      <div className="editor-controls">
+        <select value={language} onChange={updateLanguage}>
+          {languages.map((lang, idx) => (
+            <option key={idx} value={lang.toLowerCase()}>
+              {lang}
+            </option>
+          ))}
+        </select>
+
+        <select value={theme} onChange={updateTheme}>
+          {themes.map((t, idx) => (
+            <option key={idx} value={t.toLowerCase()}>
+              {t}
+            </option>
+          ))}
+        </select>
+
+        <button className="run-btn" onClick={runcode}>
+          Run
+        </button>
+        <button className="submit-btn" onClick={submitcode}>
+          Submit
+        </button>
+        <button className="reset-btn" onClick={resetCode}>
+          Reset
+        </button>
+      </div>
+
       <Editor
         height="350px"
         language={language}
-        placeholder="Write your code here..."
-        name="code"
-        value={code}
         theme={theme}
-        onChange={updateCode} // Call handleCodeChange when the content changes
-        options={{
-          mouseWheelZoom: true, // Enable zooming with the mouse wheel
-        }}
+        value={code}
+        onChange={updateCode}
+        options={{ minimap: { enabled: true } }}
       />
-      <div id="input-output">
-        <textarea
-          id="input"
-          defaultValue={input}
-          onChange={updateInput}
-          placeholder="Enter you input here..."
-        ></textarea>
-        <div id="output">
-          <h3>Output/Error:</h3>
-          {verdict && <pre>{verdict}</pre>}
-        </div>
-      </div>
-      <div id="code-reset" onClick={resetCode}>
-        Reset
-      </div>
+
+      <textarea
+        className="editor-input"
+        placeholder="Enter custom input here..."
+        value={input}
+        onChange={updateInput}
+      />
+      {isLoading ? (
+        <>
+          <ClipLoader color="#ffffff" size={20} />
+        </> // size optional
+      ) : (
+        <div className="editor-output-success">{verdict}</div>
+      )}
     </div>
   );
 };
