@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { ClipLoader } from "react-spinners";
 import { Editor } from "@monaco-editor/react";
 import { toast } from "react-toastify";
-import Spinner from "../components/Spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { runCode, submitCode } from "../slices/problem/problemSlice";
 import { updateSolvedProblems } from "../slices/auth/authSlice";
@@ -11,8 +10,6 @@ const CodeEditor = ({ title }) => {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.problems);
   const { user } = useSelector((state) => state.auth);
-  const { result } = useSelector((state) => state.problems);
-
   const [code, setCode] = useState(localStorage.getItem(`${title}-code`) || "");
   const [language, setLanguage] = useState(
     localStorage.getItem("language") || "cpp"
@@ -32,18 +29,21 @@ const CodeEditor = ({ title }) => {
   };
   const updateTheme = (e) => setTheme(e.target.value);
 
-  const runcode = () => {
+  const runcode = async () => {
     if (!code) return toast.error("Write some code first");
     localStorage.setItem(`${title}-code`, code);
     localStorage.setItem(`${title}-input`, input);
-    dispatch(runCode({ code, language, title, input }));
+    const result = await dispatch(runCode({ code, language, title, input }));
+    console.log(result.payload);
+    if (result) setVerdict(result.payload);
   };
 
   const submitcode = async () => {
     if (!code) return toast.error("Write some code first");
     if (!user) return toast.error("Please login to submit");
     localStorage.setItem(`${title}-code`, code);
-    await dispatch(submitCode({ code, language, title }));
+    const result = await dispatch(submitCode({ code, language, title }));
+    if (result) setVerdict(result);
     console.log(user.solvedProblems);
     if (result === "Accepted" && !user.solvedProblems.includes(title)) {
       await dispatch(updateSolvedProblems({ email: user.email, title }));
@@ -54,10 +54,6 @@ const CodeEditor = ({ title }) => {
     setCode("");
     setVerdict("");
   };
-
-  useEffect(() => {
-    if (result) setVerdict(result);
-  }, [result]);
 
   return (
     <div className="code-editor">
@@ -107,7 +103,7 @@ const CodeEditor = ({ title }) => {
       {isLoading ? (
         <>
           <ClipLoader color="#ffffff" size={20} />
-        </> // size optional
+        </>
       ) : (
         <div className="editor-output-success">{verdict}</div>
       )}

@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ProblemBar from "../components/ProblemBar";
-import Spinner from "../components/Spinner";
 import { getProblems } from "../slices/problem/problemSlice";
 import { toast } from "react-toastify";
 import { FaExclamationCircle, FaPlus } from "react-icons/fa";
@@ -21,8 +20,6 @@ function Dashboard() {
   }, [isError, message, dispatch]);
 
   const createProblem = () => navigate("/addProblem");
-
-  if (isLoading) return <Spinner />;
 
   return (
     <div className="dashboard-container">

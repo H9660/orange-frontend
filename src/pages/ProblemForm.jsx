@@ -31,7 +31,7 @@ function ProblemForm() {
   }, [isError, message, dispatch]);
 
   useEffect(() => {
-    myRef.current.focus();
+    myRef.current?.focus();
   }, []);
 
   const onChange = (e) =>

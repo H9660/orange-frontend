@@ -35,7 +35,7 @@ function ProblemContext() {
               <li>{problem.title}</li>
               <ul>
                 <li>{problem.difficulty}</li>
-                <li>✔Solved</li>
+                {/* <li>✔Solved</li> */}
               </ul>
             </ul>
             {solveSuccess ? (
